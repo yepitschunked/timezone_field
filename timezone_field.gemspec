@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'timezone_field'
-  s.version     = '1.0.1'
+  s.version     = '1.1.0'
   s.summary     = "Rails-friendly timezone field"
   s.description = "Stores timezones as standard TZInfo identifiers and handles conversion to/from Rails-friendly timezones"
   s.authors     = ["Victor Lin"]

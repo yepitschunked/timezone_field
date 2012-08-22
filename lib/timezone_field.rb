@@ -4,22 +4,20 @@ require 'active_support'
 module TimezoneField
   extend ActiveSupport::Concern
 
-  class ZoneValidator < ActiveModel::Validator
-    def validate(record)
-      record.class.timezone_fields.each do |tz_field|
-        value = record.send(:read_attribute, tz_field)
-        if value.present?
-          record.errors[tz_field.to_sym] << 'Unrecognized timezone' if ActiveSupport::TimeZone[value].nil?
-        end
+  class ZoneValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      value = record.send(:read_attribute, attribute)
+      if value.present?
+        record.errors[attribute] << 'Unrecognized timezone' if ActiveSupport::TimeZone[value].nil?
       end
     end
   end
 
   module ClassMethods
     def has_timezone_field(field_name)
-      self.timezone_fields ||= []
       self.timezone_fields << field_name
       define_timezone_accessors(field_name)
+      validates :"#{field_name}", :zone => true
     end
 
     def define_timezone_accessors(field_name)
@@ -46,6 +44,6 @@ module TimezoneField
 
   included do
     class_attribute :timezone_fields
-    validates_with ZoneValidator
+    self.timezone_fields ||= []
   end
 end

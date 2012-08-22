@@ -17,6 +17,7 @@ class TestTimezoneField < MiniTest::Unit::TestCase
   end
 
   def setup
+    Time.zone = "Arizona"
     @model = TestModel.new
   end
 
@@ -35,7 +36,6 @@ class TestTimezoneField < MiniTest::Unit::TestCase
   end
 
   def test_timezone_read_map_from_unknown_identifier
-    Time.zone = "Arizona"
     @model.send(:write_attribute, :test_zone, "ajksdfhaskjdfs")
     assert_equal Time.zone.name, @model.test_zone.name
   end
