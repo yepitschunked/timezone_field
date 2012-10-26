@@ -40,6 +40,11 @@ class TestTimezoneField < MiniTest::Unit::TestCase
     assert_equal Time.zone.name, @model.test_zone.name
   end
 
+  def test_timezone_read_map_from_nil_identifier
+    @model.send(:write_attribute, :test_zone, nil)
+    assert_equal Time.zone.name, @model.test_zone.name
+  end
+
   def test_timezone_write_map_from_rails_identifier
     @model.test_zone = "Pacific Time (US & Canada)"
     assert_equal "America/Los_Angeles", @model.send(:read_attribute, :test_zone)
