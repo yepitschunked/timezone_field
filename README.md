@@ -32,8 +32,8 @@ model.read_attribute(:my_field)
 
 Why?
 =====
-
-Rails identifiers are easier to read, and also work with the built in timezone
-helpers in views. Unfortunately, this isn't very interoperable with outside
-data, so this library attempts to hide the mapping under the covers. Your data
-will be stored in a standard format, while still being friendly with Rails.
+ActiveSupport::TimeZone supports two formats for timezone strings - Rails has a
+set of human-friendly zone strings, which are aliases for the standard TZInfo
+identifiers used by the rest of the world. This library attempts to hide the
+mapping under the covers. Your data will be stored in a standard format, while
+still being friendly with Rails.
